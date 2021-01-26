@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Index of Stocks
+{% endblock %}
+
+{% block main %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Stock Symbol</th>
+      <th scope="col">Share Qty</th>
+      <th scope="col">Current Price</th>
+      <th scope="col">Current Value</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for d in data %}
+    {% set stock = lookup( d.symbol ) %}
+    <tr>
+      <th scope="row">{{ loop.index }}</th>
+      <td>{{ d.symbol }}</td>
+      <td>{{ d.num_shares }}</td>
+      <td>{{ "$%.2f"|format(stock.price) }}</td>
+      <td>{{ "$%.2f"|format(d.num_shares * stock.price) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
